@@ -1,0 +1,186 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Rasa';
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: url('../img/OF-login-bcg.png') no-repeat center center/cover;
+}
+
+.left-panel, .right-panel {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left-panel {
+  background-color: rgb(255, 255, 255);
+  align-items: center;
+}
+
+.right-panel {
+  background-color: rgba(0, 63, 124, 0.8);
+  color: white;
+}
+
+.logo {
+  font-size: 70px;
+  margin-top: -100px;
+}
+
+.only {
+  color: rgba(48, 130, 198, 1);
+}
+
+.friends {
+  color: rgba(13, 89, 151, 1);
+}
+
+.logo-img {
+  width: 190px; 
+  height: 150px; 
+  margin-bottom: 200px; 
+  margin-right: 50% ;
+}
+
+.logo-img img {
+  width: 300%;  
+  height: 300%; /* Ensure it maintains the aspect ratio */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.right-panel h2 {
+  margin: 0;
+  font-size: 40px;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="email"], input[type="password"] {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 100%; 
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 16px;
+  cursor: pointer;
+}
+
+.forgot {
+  font-size: 15px;
+  color: #ffffff;
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.forgot:hover {
+    color: #1e6091;
+}
+
+.signin-btn {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 70%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.signin-btn:hover {
+  background-color: #1e6091; /* Hover background color */
+  color: white; /* Optional: Change text color on hover */
+}
+
+.or {
+  text-align: center;
+  margin: 40px 0 10px;
+  font-size: 20px;
+  margin-top: 20px;;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.socials button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;  /* Makes the button circular */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;  /* Removes padding */
+  margin-top: 20px;
+}
+
+.socials .fb {
+  background-color: #3b5998; /* Facebook blue */
+}
+
+.socials .google {
+  background-color: #db4437; /* Google red */
+}
+
+.socials img {
+  width: 30px;  /* Adjust the size of the icons */
+  height: 30px; /* Ensure they stay within the button */
+}
+
+.signup {
+  font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup a {
+  color: #ffffff;
+}
+
+.signup a:hover {
+  color: #1e6091;
+}
