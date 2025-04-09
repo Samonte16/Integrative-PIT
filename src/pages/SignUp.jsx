@@ -42,7 +42,7 @@ const SignupForm = () => {
             <div className="terms">
               <input type="checkbox" id="terms" />
               <label htmlFor="terms">
-                I agree to the <a href="#">Terms and Conditions</a>.
+                I agree to the <a href="/Terms">Terms and Conditions</a>.
               </label>
             </div>
             <button type="submit" className="submit-btn">Sign Up</button>
