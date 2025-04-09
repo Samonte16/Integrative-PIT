@@ -37,12 +37,12 @@ const SignupForm = () => {
                 placeholder="Password" 
                 className="form-input" 
               />
-              <span className="eye-icon" onClick={togglePasswordVisibility}>👁️</span>
+              <span className="signup-eye-icon" onClick={togglePasswordVisibility}>👁️</span>
             </div>
             <div className="terms">
               <input type="checkbox" id="terms" />
               <label htmlFor="terms">
-                I agree to the <a href="#">terms of service and privacy policy</a>.
+                I agree to the <a href="#">Terms and Conditions</a>.
               </label>
             </div>
             <button type="submit" className="submit-btn">Sign Up</button>

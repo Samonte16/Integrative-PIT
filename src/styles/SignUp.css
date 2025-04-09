@@ -92,7 +92,7 @@ select.form-input::after {
   position: relative;
 }
 
-.eye-icon {
+.signup-eye-icon {
   position: absolute;
   right: 10px;
   top: 18px;

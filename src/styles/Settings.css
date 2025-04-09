@@ -1,0 +1,50 @@
+.settings {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+.settings h2 {
+  margin-bottom: 20px;
+  color: #207cca;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-item label {
+  font-size: 16px;
+  color: #333;
+}
+
+.setting-item input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+.setting-item input[type="checkbox"] {
+  width: auto;
+}
+
+.btn-primary {
+  background-color: #0a469e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #074d80;
+}

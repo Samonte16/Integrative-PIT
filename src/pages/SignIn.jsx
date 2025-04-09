@@ -3,15 +3,26 @@ import '../styles/SignIn.css';
 import OnlyFriendsLogo from '../img/OnlyFriends-logo.png';
 import GoogleLogo from '../img/google-logo.png';
 import FBLogo from '../img/fb-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-  // State to toggle password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // 👈 for loading state
+  const navigate = useNavigate();
 
-  // Function to toggle the visibility of the password
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    setIsLoading(true); // 👈 start loading
+
+    // Simulate loading delay (e.g. call to backend)
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/dashboard'); // 👈 redirect after "signing in"
+    }, 2000); // 2 seconds
   };
 
   return (
@@ -28,7 +39,7 @@ const SignIn = () => {
       <div className="right-panel">
         <h2>Hello!<br />Welcome Back</h2>
         <p>Please Sign In to Continue.</p>
-        <form>
+        <form onSubmit={handleSignIn}>
           <input type="email" placeholder="Enter Email" required />
           <div className="password-wrapper">
             <input 
@@ -44,7 +55,11 @@ const SignIn = () => {
             </span>
           </div>
           <a href="#" className="forgot">Forgot Password?</a>
-          <button type="submit" className="signin-btn">Sign In</button>
+          
+          <button type="submit" className="signin-btn" disabled={isLoading}>
+            {isLoading ? "Signing in..." : "Sign In"}
+          </button>
+
           <p className="or">──────────────── Or Continue with ────────────────</p>
           <div className="socials">
             <a href="https://www.facebook.com/login/" target="_blank" rel="noopener noreferrer">
