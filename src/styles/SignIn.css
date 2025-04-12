@@ -75,7 +75,6 @@ form {
 
 input[type="email"], input[type="password"] {
   padding: 10px;
-  border: none;
   border-radius: 10px;
   margin-bottom: 10px;
 }
@@ -86,7 +85,6 @@ input[type="email"], input[type="password"] {
 
 input[type="email"], input[type="password"], input[type="text"] {
   padding: 10px;
-  border: none;
   border-radius: 10px;
   margin-bottom: 20px;
   width: 100%; 
