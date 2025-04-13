@@ -1,4 +1,3 @@
-// src/components/Dashboard.js
 import React, { useState } from 'react';
 import '../styles/Dashboard.css';
 
@@ -45,7 +44,7 @@ const Dashboard = () => {
     }
     const now = new Date();
     const timestamp = now.toLocaleString();
-    const duration = Math.floor((now - clockedInTime) / 60000); // duration in minutes
+    const duration = Math.floor((now - clockedInTime) / 60000);
     const durationText = `${Math.floor(duration / 60)}h ${duration % 60}m`;
     setClockLog((prev) => [
       ...prev,
@@ -61,7 +60,23 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     alert('You have logged out.');
-    // Add logic for logging out (e.g., clearing user data or redirecting to login page)
+  };
+
+  const getAttendance = () => {
+    const attendanceMap = {};
+
+    clockLog.forEach((entry) => {
+      const dateKey = new Date(entry.time).toDateString();
+      if (!attendanceMap[dateKey]) {
+        attendanceMap[dateKey] = { in: false, out: false };
+      }
+      attendanceMap[dateKey][entry.type] = true;
+    });
+
+    return Object.entries(attendanceMap).map(([date, status]) => ({
+      date,
+      status: status.in && status.out ? 'Present' : status.in ? 'Incomplete' : 'Absent',
+    }));
   };
 
   return (
@@ -92,6 +107,18 @@ const Dashboard = () => {
         </div>
         <div className="welcome-actions">
           <button className="btn-secondary">Upcoming Schedules</button>
+          <button
+            className="Dash-btn-primary"
+            onClick={() => document.getElementById('clock-in-out').scrollIntoView({ behavior: 'smooth' })}
+          >
+            Clock In / Out
+          </button>
+          <button
+            className="Dash-btn-primary"
+            onClick={() => document.getElementById('attendance-checker').scrollIntoView({ behavior: 'smooth' })}
+          >
+            Attendance Checker
+          </button>
         </div>
       </div>
 
@@ -120,7 +147,7 @@ const Dashboard = () => {
       </section>
 
       {/* Clock In Form */}
-      <section className="clockin-form">
+      <section className="clockin-form" id="clock-in-out">
         <h3>Clock In</h3>
         <p>Select your shift and clock in</p>
         <form onSubmit={handleClockIn}>
@@ -147,14 +174,8 @@ const Dashboard = () => {
             onChange={(e) => setClockInReason(e.target.value)}
             required
           />
-          <button type="submit" className="btn-primary">Clock In</button>
-          <button
-            type="button"
-            className="btn-primary clockout-button"
-            onClick={handleClockOut}
-          >
-            Clock Out
-          </button>
+          <button type="submit" className="Dash-btn-primary">Clock In</button>
+          <button type="button" className="Dash-btn-primary" onClick={handleClockOut}>Clock Out</button>
         </form>
       </section>
 
@@ -185,6 +206,26 @@ const Dashboard = () => {
         )}
       </section>
 
+      {/* Attendance Section */}
+      <section className="attendance-section" id="attendance-checker">
+        <h3>Attendance Checker</h3>
+        <table className="attendance-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getAttendance().map((entry, index) => (
+              <tr key={index}>
+                <td>{entry.date}</td>
+                <td>{entry.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
 
       {/* Footer */}
       <footer>

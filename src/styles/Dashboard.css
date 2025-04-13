@@ -100,11 +100,11 @@
   gap: 10px;
 }
 
-.btn-primary {
-  background-color: #0a469e;
+.Dash-btn-primary {
+  background-color: #207cca;
   color: white;
   padding: 10px 15px;
-  border: none;
+  border-color: white;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -227,6 +227,28 @@
   color: white;
   border: none;
 }
+
+.attendance-section {
+  padding: 35px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  margin: 40px 0;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.attendance-table th, .attendance-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
 
 .btn-logout {
   position: fixed;
