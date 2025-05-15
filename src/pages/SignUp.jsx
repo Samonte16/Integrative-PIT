@@ -67,19 +67,7 @@ const SignupForm = () => {
               </label>
             </div>
             <button type="submit" className="submit-btn">Sign Up</button>
-            <div className="or">──────────── Or Continue with ────────────</div>
-            <div className="socials">
-              <a href="https://www.facebook.com/login/" target="_blank" rel="noopener noreferrer">
-                <button type="button" className="fb">
-                  <img src={FBLogo} alt="Facebook" />
-                </button>
-              </a>
-              <a href="https://accounts.google.com/ServiceLogin" target="_blank" rel="noopener noreferrer">
-                <button type="button" className="google">
-                  <img src={GoogleLogo} alt="Google" />
-                </button>
-              </a>
-            </div>
+            
           </form>
           <div className="login-link">
             Already have an account? <Link to="/">Sign In Here</Link>

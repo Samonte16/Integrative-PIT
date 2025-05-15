@@ -60,19 +60,6 @@ const SignIn = () => {
             {isLoading ? "Signing in..." : "Sign In"}
           </button>
 
-          <p className="or">──────────────── Or Continue with ────────────────</p>
-          <div className="socials">
-            <a href="https://www.facebook.com/login/" target="_blank" rel="noopener noreferrer">
-              <button className="fb">
-                <img src={FBLogo} alt="Facebook" />
-              </button>
-            </a>
-            <a href="https://accounts.google.com/ServiceLogin" target="_blank" rel="noopener noreferrer">
-              <button className="google">
-                <img src={GoogleLogo} alt="Google" />
-              </button>
-            </a>
-          </div>
           <p className="signup">Don’t have an account? <Link to="/signup">Sign Up Here</Link></p>
         </form>
       </div>
