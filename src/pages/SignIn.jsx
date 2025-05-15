@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/SignIn.css';
 import OnlyFriendsLogo from '../img/OnlyFriends-logo.png';
-import GoogleLogo from '../img/google-logo.png';
-import FBLogo from '../img/fb-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/SignUp.css';
-import GoogleLogo from '../img/google-logo.png';
-import FBLogo from '../img/fb-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
@@ -67,7 +65,7 @@ const SignupForm = () => {
               </label>
             </div>
             <button type="submit" className="submit-btn">Sign Up</button>
-            
+
           </form>
           <div className="login-link">
             Already have an account? <Link to="/">Sign In Here</Link>
