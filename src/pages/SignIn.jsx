@@ -21,13 +21,12 @@ const SignIn = () => {
     setError("");
 
     try {
-      const response = await fetch('http://localhost:8000/api/signin/', {
+      const response = await fetch("http://192.168.1.44:8000/api/signin/", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
+
 
       const data = await response.json();
 
