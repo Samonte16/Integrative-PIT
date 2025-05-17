@@ -9,6 +9,9 @@ const SignIn = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [secretCode, setSecretCode] = useState("");
+  const [codeError, setCodeError] = useState("");
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -16,34 +19,45 @@ const SignIn = () => {
   };
 
   const handleSignIn = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setError("");
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-  try {
-    const response = await fetch("http://192.168.1.59:8000/api/signin/", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("http://192.168.1.59:8000/api/signin/", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      // ✅ Set logged-in flag
-      localStorage.setItem('isLoggedIn', 'true');
-
-      // ✅ Redirect to dashboard
-      navigate('/dashboard');
-    } else {
-      setError(data.error || 'Login failed');
+      if (response.ok) {
+        localStorage.setItem('isLoggedIn', 'true');
+        navigate('/dashboard');
+      } else {
+        setError(data.error || 'Login failed');
+      }
+    } catch (err) {
+      setError('Something went wrong');
     }
-  } catch (err) {
-    setError('Something went wrong');
-  }
 
-  setIsLoading(false);
-};
+    setIsLoading(false);
+  };
+
+  const handleAdminClick = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleVerifyCode = () => {
+    if (secretCode === 'carlospogi') {  
+      setShowModal(false);
+      navigate('/admin-login');
+    } else {
+      setCodeError('Invalid secret code');
+    }
+  };
 
   return (
     <div className="container">
@@ -94,9 +108,35 @@ const SignIn = () => {
 
           {error && <p className="error">{error}</p>}
 
-          <p className="signup">Don’t have an account? <Link to="/signup">Sign Up Here</Link></p>
+          <p className="signup">
+            Don’t have an account? <Link to="/signup">Sign Up Here</Link>
+          </p>
+
+          <p className="admin-auth">
+            Are you an Admin?
+            <a href="#" className="admin-link" onClick={handleAdminClick}> Click Here</a>
+          </p>
         </form>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Enter Secret Code</h3>
+            <input
+              type="password"
+              placeholder="Secret Code"
+              value={secretCode}
+              onChange={(e) => setSecretCode(e.target.value)}
+            />
+            {codeError && <p className="error">{codeError}</p>}
+            <div className="modal-buttons">
+              <button onClick={handleVerifyCode}>Proceed</button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

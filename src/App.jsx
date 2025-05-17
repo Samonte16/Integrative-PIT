@@ -8,6 +8,8 @@ import Settings from './pages/Settings';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Terms from './pages/Terms';
+import AdminLogin from './pages/AdminLogin';
+import AdminRegister from './pages/AdminRegister';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/contact" element={<Contact/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/terms" element={<Terms/>} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-register" element={<AdminRegister />} />
       </Routes>
     </Router>
   );
