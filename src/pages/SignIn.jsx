@@ -10,8 +10,20 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
   const [secretCode, setSecretCode] = useState("");
   const [codeError, setCodeError] = useState("");
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [forgotError, setForgotError] = useState("");
+  const [forgotSuccess, setForgotSuccess] = useState("");
+
+  // Toggles
+  const [forgotOldPasswordVisible, setForgotOldPasswordVisible] = useState(false);
+  const [forgotNewPasswordVisible, setForgotNewPasswordVisible] = useState(false);
+  const [secretCodeVisible, setSecretCodeVisible] = useState(false);
+
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -51,11 +63,46 @@ const SignIn = () => {
   };
 
   const handleVerifyCode = () => {
-    if (secretCode === 'carlospogi') {  
+    if (secretCode === 'carlospogi') {
       setShowModal(false);
       navigate('/admin-login');
     } else {
       setCodeError('Invalid secret code');
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    setForgotError("");
+    setForgotSuccess("");
+
+    if (!forgotEmail || !oldPassword || !newPassword) {
+      setForgotError("All fields are required.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://192.168.1.59:8000/api/forgot-password/", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: forgotEmail,
+          old_password: oldPassword,
+          new_password: newPassword
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setForgotSuccess("Password changed successfully. You may now sign in.");
+        setForgotEmail("");
+        setOldPassword("");
+        setNewPassword("");
+      } else {
+        setForgotError(data.error || "Failed to reset password.");
+      }
+    } catch (err) {
+      setForgotError("Something went wrong.");
     }
   };
 
@@ -76,31 +123,31 @@ const SignIn = () => {
         <p>Please Sign In to Continue.</p>
 
         <form onSubmit={handleSignIn}>
-          <input 
-            type="email" 
-            placeholder="Enter Email" 
+          <input
+            type="email"
+            placeholder="Enter Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required 
+            required
           />
 
           <div className="password-wrapper">
-            <input 
-              type={passwordVisible ? "text" : "password"} 
-              placeholder="Password" 
+            <input
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required 
+              required
             />
-            <span 
-              className="eye-icon" 
+            <span
+              className="eye-icon"
               onClick={togglePasswordVisibility}
             >
               👁️
             </span>
           </div>
 
-          <a href="#" className="forgot">Forgot Password?</a>
+          <a href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</a>
 
           <button type="submit" className="signin-btn" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
@@ -119,20 +166,78 @@ const SignIn = () => {
         </form>
       </div>
 
+      {/* Admin Secret Code Modal */}
       {showModal && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-content">
+            <h3>Enter Secret Code</h3>
+            <div className="password-wrapper">
+              <input
+                type={secretCodeVisible ? "text" : "password"}
+                placeholder="Secret Code"
+                value={secretCode}
+                onChange={(e) => setSecretCode(e.target.value)}
+              />
+              <span
+                className="eye-icon"
+                onClick={() => setSecretCodeVisible(!secretCodeVisible)}
+              >
+                👁️
+              </span>
+            </div>
+            {codeError && <p className="admin-error">{codeError}</p>}
+            <div className="admin-modal-buttons">
+              <button onClick={handleVerifyCode}>Proceed</button>
+              <button className="admin-cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Forgot Password Modal */}
+      {showForgotModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Enter Secret Code</h3>
+            <h3>Forgot Password</h3>
             <input
-              type="password"
-              placeholder="Secret Code"
-              value={secretCode}
-              onChange={(e) => setSecretCode(e.target.value)}
+              type="email"
+              placeholder="Your Verified Email"
+              value={forgotEmail}
+              onChange={(e) => setForgotEmail(e.target.value)}
             />
-            {codeError && <p className="error">{codeError}</p>}
+            <div className="password-wrapper">
+              <input
+                type={forgotOldPasswordVisible ? "text" : "password"}
+                placeholder="Old Password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+              <span
+                className="eye-icon"
+                onClick={() => setForgotOldPasswordVisible(!forgotOldPasswordVisible)}
+              >
+                👁️
+              </span>
+            </div>
+            <div className="password-wrapper">
+              <input
+                type={forgotNewPasswordVisible ? "text" : "password"}
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <span
+                className="eye-icon"
+                onClick={() => setForgotNewPasswordVisible(!forgotNewPasswordVisible)}
+              >
+                👁️
+              </span>
+            </div>
+            {forgotError && <p className="error">{forgotError}</p>}
+            {forgotSuccess && <p className="success">{forgotSuccess}</p>}
             <div className="modal-buttons">
-              <button onClick={handleVerifyCode}>Proceed</button>
-              <button className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+              <button onClick={handleForgotPassword}>Change Password</button>
+              <button className="cancel-btn" onClick={() => setShowForgotModal(false)}>Cancel</button>
             </div>
           </div>
         </div>
