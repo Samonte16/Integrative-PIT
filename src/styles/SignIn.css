@@ -323,6 +323,14 @@ input[type="email"], input[type="password"], input[type="text"] {
   opacity: 0.9;
 }
 
+.admin-modal-buttons .admin-cancel-btn {
+  background: #6c757d;
+}
+
+.admin-modal-buttons .admin-cancel-btn:hover {
+  background: #495057;
+}
+
 .admin-error {
   color: #d9534f;
   font-size: 13px;
