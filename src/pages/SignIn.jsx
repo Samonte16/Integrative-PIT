@@ -16,33 +16,34 @@ const SignIn = () => {
   };
 
   const handleSignIn = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-    try {
-      const response = await fetch("http://192.168.1.44:8000/api/signin/", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const response = await fetch("http://192.168.1.59:8000/api/signin/", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
+    const data = await response.json();
 
-      const data = await response.json();
+    if (response.ok) {
+      // ✅ Set logged-in flag
+      localStorage.setItem('isLoggedIn', 'true');
 
-      if (response.ok) {
-        // Success: redirect to dashboard or store token if needed
-        navigate('/dashboard');
-      } else {
-        // Show error message from API response
-        setError(data.error || 'Login failed');
-      }
-    } catch (err) {
-      setError('Something went wrong');
+      // ✅ Redirect to dashboard
+      navigate('/dashboard');
+    } else {
+      setError(data.error || 'Login failed');
     }
+  } catch (err) {
+    setError('Something went wrong');
+  }
 
-    setIsLoading(false);
-  };
+  setIsLoading(false);
+};
 
   return (
     <div className="container">

@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import '../styles/Dashboard.css';
+import { useEffect } from 'react';
+
 
 const Dashboard = () => {
   const [selectedShift, setSelectedShift] = useState('');
   const [clockInReason, setClockInReason] = useState('');
   const [clockLog, setClockLog] = useState([]);
   const [clockedInTime, setClockedInTime] = useState(null);
+
+  useEffect(() => {
+  const handleStorageChange = (e) => {
+    if (e.key === 'isLoggedIn' && e.newValue === null) {
+      window.location.href = '/';
+    }
+  };
+
+  window.addEventListener('storage', handleStorageChange);
+
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+  };
+}, []);
 
   const handleClockIn = (e) => {
     e.preventDefault();
@@ -59,8 +75,10 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
-    alert('You have logged out.');
-  };
+  localStorage.removeItem('isLoggedIn');
+  alert('You have logged out.');
+  window.location.href = '/';
+};
 
   const getAttendance = () => {
     const attendanceMap = {};
