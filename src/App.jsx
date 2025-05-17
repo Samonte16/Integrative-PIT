@@ -10,6 +10,7 @@ import About from './pages/About';
 import Terms from './pages/Terms';
 import AdminLogin from './pages/AdminLogin';
 import AdminRegister from './pages/AdminRegister';
+import AdminDashboard from './pages/AdminDashboard';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/terms" element={<Terms/>} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-register" element={<AdminRegister />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
