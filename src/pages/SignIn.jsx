@@ -45,7 +45,8 @@ const SignIn = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('isLoggedIn', 'true');
+        alert(`Welcome ${data.full_name}`);
+        localStorage.setItem('full_name', data.full_name);
         navigate('/dashboard');
       } else {
         setError(data.error || 'Login failed');
