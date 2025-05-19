@@ -29,6 +29,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('admin_name');
+    alert('You have logged out.');
     window.location.href = '/admin-login';
   };
 

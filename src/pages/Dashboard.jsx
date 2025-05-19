@@ -78,7 +78,7 @@ const Dashboard = () => {
   localStorage.removeItem('isLoggedIn');
   alert('You have logged out.');
   window.location.href = '/';
-};
+  };
 
   const getAttendance = () => {
     const attendanceMap = {};

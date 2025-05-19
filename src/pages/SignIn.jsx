@@ -182,7 +182,7 @@ const SignIn = () => {
 
           <p className="admin-auth">
             Are you an Admin?
-            <a href="#" className="admin-link" onClick={handleAdminClick}> Click Here</a>
+            <a href="#" className="admin-link" onClick={handleAdminClick}>Click Here</a>
           </p>
         </form>
       </div>
