@@ -31,7 +31,7 @@ const SignupForm = () => {
     setError('');
 
     try {
-      const response = await fetch("http://192.168.1.59:8000/api/signup/",  {
+      const response = await fetch("http://192.168.1.44:8000/api/signup/",  {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

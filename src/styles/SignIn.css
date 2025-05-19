@@ -139,7 +139,7 @@ input[type="email"], input[type="password"], input[type="text"] {
 }
 
 .modal-content input {
-  width: 100%;
+  width: 92%;
   padding: 12px 14px;
   margin-bottom: 15px;
   border: 1px solid #ddd;

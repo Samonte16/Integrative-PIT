@@ -6,10 +6,25 @@ const AdminDashboard = () => {
   const adminName = localStorage.getItem('admin_name');
 
   useEffect(() => {
-    fetch('http://192.168.1.59:8000/api/admin/verified-users/')
+    fetch('http://192.168.1.44:8000/api/admin/verified-users/')
       .then(res => res.json())
       .then(data => setUsers(data.verified_users))
       .catch(() => alert('Failed to fetch verified users'));
+  }, []);
+
+  // 🔐 Auto logout on other tab logout
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'admin_name' && e.newValue === null) {
+        window.location.href = '/admin-login';
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleLogout = () => {

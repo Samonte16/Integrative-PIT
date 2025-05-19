@@ -10,14 +10,16 @@ const AdminRegister = () => {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch("http://192.168.1.59:8000/api/admin/register/", {
+      const response = await fetch("http://192.168.1.44:8000/api/admin/register/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -89,7 +91,7 @@ const AdminRegister = () => {
               👁️
             </span>
           </div>
-          <button type="submit">Register</button>
+          <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
         </form>
         {error && <p className="error">{error}</p>}
         <p>Already have an account? <Link to="/admin-login">Login</Link></p>

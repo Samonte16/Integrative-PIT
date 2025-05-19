@@ -109,3 +109,87 @@
 .auth-card a:hover {
   text-decoration: underline;
 }
+
+/* Modal Overlay */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 28, 49, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Content */
+.admin-modal-content {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 350px;
+  max-width: 90%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.admin-modal-content h3 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #001c31;
+}
+
+.admin-modal-content input {
+  width: 92%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.admin-modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-modal-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.25s ease;
+}
+
+.admin-modal-buttons button:hover {
+  background: #084298;
+}
+
+.admin-modal-buttons .admin-cancel-btn {
+  background: #6c757d;
+}
+
+.admin-modal-buttons .admin-cancel-btn:hover {
+  background: #495057;
+}
+
+/* Error + Success Messages */
+.admin-error {
+  color: #e63946;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+.admin-success {
+  color: #20c997;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
