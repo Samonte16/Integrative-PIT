@@ -18,8 +18,8 @@ const SignIn = () => {
   const [newPassword, setNewPassword] = useState("");
   const [forgotError, setForgotError] = useState("");
   const [forgotSuccess, setForgotSuccess] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
 
-  // Toggles
   const [forgotOldPasswordVisible, setForgotOldPasswordVisible] = useState(false);
   const [forgotNewPasswordVisible, setForgotNewPasswordVisible] = useState(false);
   const [secretCodeVisible, setSecretCodeVisible] = useState(false);
@@ -71,12 +71,25 @@ const SignIn = () => {
     }
   };
 
+  const resetForgotForm = () => {
+    setForgotEmail("");
+    setOldPassword("");
+    setNewPassword("");
+    setForgotError("");
+    setForgotSuccess("");
+    setForgotLoading(false);
+    setForgotOldPasswordVisible(false);
+    setForgotNewPasswordVisible(false);
+  };
+
   const handleForgotPassword = async () => {
     setForgotError("");
     setForgotSuccess("");
+    setForgotLoading(true);
 
     if (!forgotEmail || !oldPassword || !newPassword) {
       setForgotError("All fields are required.");
+      setForgotLoading(false);
       return;
     }
 
@@ -95,15 +108,23 @@ const SignIn = () => {
 
       if (response.ok) {
         setForgotSuccess("Password changed successfully. You may now sign in.");
-        setForgotEmail("");
-        setOldPassword("");
-        setNewPassword("");
+        setTimeout(() => {
+          resetForgotForm();
+          setShowForgotModal(false);
+        }, 1500);
       } else {
         setForgotError(data.error || "Failed to reset password.");
       }
     } catch (err) {
       setForgotError("Something went wrong.");
     }
+
+    setForgotLoading(false);
+  };
+
+  const handleCancelForgot = () => {
+    resetForgotForm();
+    setShowForgotModal(false);
   };
 
   return (
@@ -236,8 +257,10 @@ const SignIn = () => {
             {forgotError && <p className="error">{forgotError}</p>}
             {forgotSuccess && <p className="success">{forgotSuccess}</p>}
             <div className="modal-buttons">
-              <button onClick={handleForgotPassword}>Change Password</button>
-              <button className="cancel-btn" onClick={() => setShowForgotModal(false)}>Cancel</button>
+              <button onClick={handleForgotPassword} disabled={forgotLoading}>
+                {forgotLoading ? "Changing..." : "Change Password"}
+              </button>
+              <button className="cancel-btn" onClick={handleCancelForgot}>Cancel</button>
             </div>
           </div>
         </div>

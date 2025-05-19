@@ -47,6 +47,7 @@ const SignupForm = () => {
       const data = await response.json();
 
       if (response.ok) {
+        alert(data.message || 'Signup successful! Please verify your email.');
         navigate('/'); // Redirect to login page after signup success
       } else {
         setError(data.error || 'Signup failed');

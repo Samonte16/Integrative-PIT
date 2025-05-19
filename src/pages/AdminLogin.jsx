@@ -8,16 +8,23 @@ const AdminLogin = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [forgotError, setForgotError] = useState('');
   const [forgotSuccess, setForgotSuccess] = useState('');
+  const [forgotLoading, setForgotLoading] = useState(false);
+
   const [forgotOldPasswordVisible, setForgotOldPasswordVisible] = useState(false);
   const [forgotNewPasswordVisible, setForgotNewPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,14 +49,29 @@ const AdminLogin = () => {
     } catch (err) {
       setError("Something went wrong");
     }
+
+    setLoading(false);
+  };
+
+  const resetForgotForm = () => {
+    setForgotEmail('');
+    setOldPassword('');
+    setNewPassword('');
+    setForgotError('');
+    setForgotSuccess('');
+    setForgotLoading(false);
+    setForgotOldPasswordVisible(false);
+    setForgotNewPasswordVisible(false);
   };
 
   const handleForgotPassword = async () => {
-    setForgotError("");
-    setForgotSuccess("");
+    setForgotError('');
+    setForgotSuccess('');
+    setForgotLoading(true);
 
     if (!forgotEmail || !oldPassword || !newPassword) {
       setForgotError("All fields are required.");
+      setForgotLoading(false);
       return;
     }
 
@@ -68,15 +90,23 @@ const AdminLogin = () => {
 
       if (response.ok) {
         setForgotSuccess("Password changed successfully. You may now log in.");
-        setForgotEmail("");
-        setOldPassword("");
-        setNewPassword("");
+        setTimeout(() => {
+          resetForgotForm();
+          setShowForgotModal(false);
+        }, 1500);
       } else {
         setForgotError(data.error || "Failed to reset password.");
       }
     } catch (err) {
       setForgotError("Something went wrong.");
     }
+
+    setForgotLoading(false);
+  };
+
+  const handleCancelForgot = () => {
+    resetForgotForm();
+    setShowForgotModal(false);
   };
 
   return (
@@ -101,15 +131,19 @@ const AdminLogin = () => {
             />
             <span
               className="admin-eye-icon"
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              onClick={togglePasswordVisibility}
             >
               👁️
             </span>
           </div>
           <a href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</a>
-          <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
+
         {error && <p className="error">{error}</p>}
+
         <p>Don’t have an account? <Link to="/admin-register">Register</Link></p>
         <p>Back to Sign In? <Link to="/">Click Here</Link></p>
       </div>
@@ -156,8 +190,10 @@ const AdminLogin = () => {
             {forgotError && <p className="admin-error">{forgotError}</p>}
             {forgotSuccess && <p className="admin-success">{forgotSuccess}</p>}
             <div className="admin-modal-buttons">
-              <button onClick={handleForgotPassword}>Change Password</button>
-              <button className="admin-cancel-btn" onClick={() => setShowForgotModal(false)}>Cancel</button>
+              <button onClick={handleForgotPassword} disabled={forgotLoading}>
+                {forgotLoading ? "Changing..." : "Change Password"}
+              </button>
+              <button className="admin-cancel-btn" onClick={handleCancelForgot}>Cancel</button>
             </div>
           </div>
         </div>
