@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
   const adminName = localStorage.getItem('admin_name');
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('admin_name');
     alert('You have logged out.');
-    window.location.href = '/admin-login';
+    navigate('/admin-login');
   };
 
   return (

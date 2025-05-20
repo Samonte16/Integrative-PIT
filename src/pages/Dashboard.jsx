@@ -11,7 +11,6 @@ const Dashboard = () => {
   useEffect(() => {
     const handleStorageChange = (event) => {
       if ((event.key === 'isLoggedIn' && event.newValue === null) || event.key === 'logout-event') {
-        alert('You have been logged out in another tab.');
         window.location.href = '/';
       }
     };
