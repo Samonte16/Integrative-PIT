@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   const adminName = localStorage.getItem('admin_name');
 
   useEffect(() => {
-    fetch('https://ipt-pit-django-v2.onrender.com/api/admin/verified-users/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/admin/verified-users/`)
       .then(res => res.json())
       .then(data => setUsers(data.verified_users))
       .catch(() => alert('Failed to fetch verified users'));

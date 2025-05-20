@@ -36,7 +36,7 @@ const SignIn = () => {
     setError("");
 
     try {
-      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/signin/", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/signin/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -95,7 +95,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/forgot-password/", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/forgot-password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
