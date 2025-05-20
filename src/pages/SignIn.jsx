@@ -169,7 +169,7 @@ const SignIn = () => {
             </span>
           </div>
 
-          <a href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</a>
+          <p href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</p>
 
           <button type="submit" className="signin-btn" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
