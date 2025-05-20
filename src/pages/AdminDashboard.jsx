@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
-  const adminName = localStorage.getItem('admin_name');
+  const [adminName, setAdminName] = useState(localStorage.getItem('admin_name'));
 
-  // Redirect to login if not authenticated
+  // ✅ Check on mount if admin is logged in
   useEffect(() => {
     if (!adminName) {
-      navigate('/admin-login');
+      window.location.href = '/admin-login';
     }
-  }, [adminName, navigate]);
+  }, [adminName]);
 
+  // ✅ Fetch users
   useEffect(() => {
     fetch('https://ipt-pit-django-v2.onrender.com/api/admin/verified-users/')
       .then(res => res.json())
@@ -21,11 +20,12 @@ const AdminDashboard = () => {
       .catch(() => alert('Failed to fetch verified users'));
   }, []);
 
-  // 🔐 Auto logout across all tabs
+  // ✅ Auto-logout across tabs using 'storage' event
   useEffect(() => {
     const handleStorageChange = (e) => {
-      if (e.key === 'admin_name' && e.newValue === null) {
-        window.location.reload(); // Reloads the page, triggers redirect if adminName is gone
+      if (e.key === 'adminname' && e.newValue === null) {
+        // 👇 reload page to trigger login redirect
+        window.location.href = '/admin-login';
       }
     };
 
@@ -35,15 +35,12 @@ const AdminDashboard = () => {
     };
   }, []);
 
+  // ✅ Manual logout (this tab) and auto-redirect
   const handleLogout = () => {
     localStorage.removeItem('admin_name');
     alert('You have logged out.');
-    navigate('/admin-login');
+    window.location.href = '/admin-login'; // works in all environments
   };
-
-  if (!adminName) {
-    return null; // Avoid rendering protected content while redirecting
-  }
 
   return (
     <div className="admin-page-wrapper">
