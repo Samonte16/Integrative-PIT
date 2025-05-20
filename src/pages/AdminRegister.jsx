@@ -19,7 +19,7 @@ const AdminRegister = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://192.168.1.44:8000/api/admin/register/", {
+      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/admin/register/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

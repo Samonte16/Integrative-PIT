@@ -36,7 +36,7 @@ const SignIn = () => {
     setError("");
 
     try {
-      const response = await fetch("http://192.168.1.44:8000/api/signin/", {
+      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/signin/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -95,7 +95,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await fetch("http://192.168.1.44:8000/api/forgot-password/", {
+      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/forgot-password/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
