@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Dashboard.css';
-import { useEffect } from 'react';
-
 
 const Dashboard = () => {
   const [selectedShift, setSelectedShift] = useState('');
@@ -9,19 +7,21 @@ const Dashboard = () => {
   const [clockLog, setClockLog] = useState([]);
   const [clockedInTime, setClockedInTime] = useState(null);
 
+  // Cross-tab logout detection
   useEffect(() => {
-  const handleStorageChange = (e) => {
-    if (e.key === 'isLoggedIn' && e.newValue === null) {
-      window.location.href = '/';
-    }
-  };
+    const handleStorageChange = (event) => {
+      if ((event.key === 'isLoggedIn' && event.newValue === null) || event.key === 'logout-event') {
+        alert('You have been logged out in another tab.');
+        window.location.href = '/';
+      }
+    };
 
-  window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', handleStorageChange);
 
-  return () => {
-    window.removeEventListener('storage', handleStorageChange);
-  };
-}, []);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const handleClockIn = (e) => {
     e.preventDefault();
@@ -75,9 +75,10 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
-  localStorage.removeItem('isLoggedIn');
-  alert('You have logged out.');
-  window.location.href = '/';
+    localStorage.removeItem('isLoggedIn');
+    localStorage.setItem('logout-event', Date.now()); // Trigger logout in other tabs
+    alert('You have logged out.');
+    window.location.href = '/';
   };
 
   const getAttendance = () => {
