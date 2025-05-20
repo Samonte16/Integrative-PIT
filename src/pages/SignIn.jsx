@@ -36,7 +36,7 @@ const SignIn = () => {
     setError("");
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/signin/`, {
+      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/signin/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -95,7 +95,7 @@ const SignIn = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/forgot-password/`, {
+      const response = await fetch("https://ipt-pit-django-v2.onrender.com/api/forgot-password/", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -169,7 +169,7 @@ const SignIn = () => {
             </span>
           </div>
 
-          <p href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</p>
+          <a href="#" className="forgot" onClick={() => setShowForgotModal(true)}>Forgot Password?</a>
 
           <button type="submit" className="signin-btn" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
