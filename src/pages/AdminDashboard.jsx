@@ -16,7 +16,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const handleStorageChange = (event) => {
       if ((event.key === 'admin_name' && event.newValue === null) || event.key === 'logout-event') {
-        window.location.reload(); // Reload the tab to trigger logout check
+        window.location.href = '/admin-login';
       }
     };
 
