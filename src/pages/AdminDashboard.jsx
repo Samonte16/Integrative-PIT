@@ -18,16 +18,14 @@ const AdminDashboard = () => {
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === 'admin_name' && e.newValue === null) {
-        window.location.reload(); // Reload the tab to trigger logout check
+        navigate('/admin-login');
       }
     };
 
     window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [navigate]);
 
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('admin_name');
