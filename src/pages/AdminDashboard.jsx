@@ -14,7 +14,6 @@ const AdminDashboard = () => {
       .catch(() => alert('Failed to fetch verified users'));
   }, []);
 
-  // 🔐 Auto logout on other tab logout
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === 'admin_name' && e.newValue === null) {

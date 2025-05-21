@@ -7,7 +7,6 @@ const Dashboard = () => {
   const [clockLog, setClockLog] = useState([]);
   const [clockedInTime, setClockedInTime] = useState(null);
 
-  // Cross-tab logout detection
   useEffect(() => {
     const handleStorageChange = (event) => {
       if ((event.key === 'isLoggedIn' && event.newValue === null) || event.key === 'logout-event') {
@@ -75,7 +74,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
-    localStorage.setItem('logout-event', Date.now()); // Trigger logout in other tabs
+    localStorage.setItem('logout-event', Date.now());
     alert('You have logged out.');
     window.location.href = '/';
   };
