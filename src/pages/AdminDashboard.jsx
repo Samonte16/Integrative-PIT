@@ -14,8 +14,8 @@ const AdminDashboard = () => {
 
   // 🔐 Auto logout on other tab logout
   useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === 'admin_name' && e.newValue === null) {
+    const handleStorageChange = (event) => {
+      if ((event.key === 'admin_name' && event.newValue === null) || event.key === 'logout-event') {
         window.location.reload(); // Reload the tab to trigger logout check
       }
     };
